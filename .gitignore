@@ -1,0 +1,6 @@
+/app/node_modules/*
+/app/package-lock.*
+/app/index.*
+/data/*
+/docker-entrypoint-initdb.d/*
+/document/*
