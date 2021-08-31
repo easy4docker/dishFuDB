@@ -21,9 +21,10 @@ docker network create \
 
 /* --- assigned dynamic password --$(openssl rand -base64 21)-*/
 docker run -v "$PWD/data":/var/lib/mysql -v "$PWD/app":/var/app \
+    -v "$PWD/log":/var/log \
     -v "$PWD/docker-entrypoint-initdb.d/":/docker-entrypoint-initdb.d/ \
     -p 3030:3000 -p 3306:3306 \
-    --network network_dishfu \
+    --network network_dishfu --restart on-failure \
     --name dishfu-container -e MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32) -d dishfu-image
 
 docker exec -it dishfu-container bash

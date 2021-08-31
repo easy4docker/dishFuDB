@@ -5,6 +5,7 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 RUN sudo apt -y install nodejs
 RUN apt-get -y install git
 RUN apt-get -y install vim
+
 # RUN openssl rand -base64 21 > /ROOT_LOCAL_PASS
 # RUN mkdir -p /var/app
 # COPY app /var/app
