@@ -42,7 +42,7 @@ class  Menu {
     const me = this;
     const connection = me.mysql.createConnection(me.cfg);
     connection.connect();
-    const sql = "SELECT * FROM communityDoc";
+    const sql = "SELECT * FROM menu";
     connection.query(sql, function (err, result, fields) {
       if (err) {
         me.res.send({status: 'failure', message:err.message});
