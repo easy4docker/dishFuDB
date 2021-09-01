@@ -22,7 +22,7 @@ class Application {
       created: ()=>  new Date(),
       status: ()=> 0
     }
-    const sql = "INSERT INTO application (" + Object.keys(mapping).join(',') + ") VALUES ?";
+    const sql = "INSERT INTO application (`" + Object.keys(mapping).join('`,`') + "`) VALUES ?";
     const values =[];
     for (let k in mapping) {
       const func = (typeof mapping[k] === 'function') ?  true :  false;
