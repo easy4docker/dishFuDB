@@ -8,8 +8,9 @@ class  Menu {
     delete require.cache[config.root +'/config/mysql.json'];
     this.cfg = require(config.root +'/config/mysql.json').devDB;
   }
-  addMenu() {
-
+  add() {
+    const me = this;
+    me.res.send({status: 'success', data: me.req.body});
   }
   getList() {
     const me = this;

@@ -36,6 +36,22 @@ class  Community {
     });
     connection.end();
   }
+  delete() {
+    const me = this;
+    const publishCode = ((!me.req.body || !me.req.body.data || !me.req.body.data.publishCode) ? '' : me.req.body.data.publishCode).replace(/\'\"/ig, '');
+    const connection = me.mysql.createConnection(me.cfg);
+    connection.connect();
+    const sql = "DELETE FROM communityDoc WHERE `publishCode` = '" + publishCode+  "' ";
+    connection.query(sql, function (err, result) {
+      if (err) {
+        me.res.send({status: 'failure', message:err.message});
+      } else {
+        me.res.send({status: 'success', data: result});
+      }
+    });
+    connection.end();
+  }
+
   getList() {
     const me = this;
     const connection = me.mysql.createConnection(me.cfg);
