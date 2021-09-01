@@ -1,4 +1,4 @@
-class Application {
+class  Community {
   constructor(req, res, next) {
     this.req = req;
     this.res = res;
@@ -6,7 +6,7 @@ class Application {
     this.mysql = require('mysql');
 
   }
-  save() {
+  publish() {
     const me = this;
     const config = me.req.app.get('config');
     delete require.cache[config.root +'/config/mysql.json'];
@@ -14,16 +14,14 @@ class Application {
     const connection = me.mysql.createConnection(cfg);
     connection.connect();
     const mapping = {
-      type : 'type' ,
-      publisher :'visitorId',
-      address: 'address',
-      description: 'description',
-      phone: 'phone',
-      qualification: 'qualification',
+      docType : 'docType' ,
+      publishCode :'publishCode',
+      authCode: 'authCode',
+      publisher: 'publisher',
       created: ()=>  new Date(),
       status: ()=> 0
     }
-    const sql = "INSERT INTO application (" + Object.keys(mapping).join(',') + ") VALUES ?";
+    const sql = "INSERT INTO communityDoc (" + Object.keys(mapping).join(',') + ") VALUES ?";
     const values =[];
     for (let k in mapping) {
       const func = (typeof mapping[k] === 'function') ?  true :  false;
@@ -38,6 +36,23 @@ class Application {
       }
     });
     connection.end();
+  }
+  getList() {
+    const me = this;
+    const config = me.req.app.get('config');
+    delete require.cache[config.root +'/config/mysql.json'];
+    const cfg = require(config.root +'/config/mysql.json').devDB;
+    const connection = me.mysql.createConnection(cfg);
+    connection.connect();
+    const sql = "SELECT * FROM communityDoc";
+    connection.query(sql, function (err, result, fields) {
+      if (err) {
+        me.res.send({status: 'failure', message:err.message});
+      } else {
+        me.res.send({status: 'success', data: result});
+      }
+    });
+    connection.end();
     // 
   }
   actionError() {
@@ -45,4 +60,4 @@ class Application {
     me.res.send({status: 'failure',  message: 'Action Error!'});
   }
 }
-module.exports  = Application;
+module.exports  = Community;
