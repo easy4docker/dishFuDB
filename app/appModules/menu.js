@@ -4,17 +4,16 @@ class  Menu {
     this.res = res;
     this.next = next;
     this.mysql = require('mysql');
-
+    const config = this.req.app.get('config');
+    delete require.cache[config.root +'/config/mysql.json'];
+    this.cfg = require(config.root +'/config/mysql.json').devDB;
   }
   addMenu() {
 
   }
   getList() {
     const me = this;
-    const config = me.req.app.get('config');
-    delete require.cache[config.root +'/config/mysql.json'];
-    const cfg = require(config.root +'/config/mysql.json').devDB;
-    const connection = me.mysql.createConnection(cfg);
+    const connection = me.mysql.createConnection(me.cfg);
     connection.connect();
     const sql = "SELECT * FROM communityDoc";
     connection.query(sql, function (err, result, fields) {
