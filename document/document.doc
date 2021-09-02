@@ -21,7 +21,7 @@ docker network create \
     network_dishfu &> /dev/null
 
 /* --- assigned dynamic password --$(openssl rand -base64 21)-*/
-docker run -v "$PWD/data":/var/lib/mysql -v "$PWD/app":/var/app \
+docker run -v "$PWD/data":/var/lib/mysql -v "$PWD/cronJobs":/var/cronJobs \
     -v "$PWD/log":/var/log \
     -v "$PWD/docker-entrypoint-initdb.d/":/docker-entrypoint-initdb.d/ \
     -p 3306:3306 \
