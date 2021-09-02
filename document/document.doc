@@ -5,11 +5,11 @@ npx express-generator app
 
 Part B-- MYSQL Server 
 
-docker stop dishfu-container && docker rm dishfu-container  && docker image rm dishfu-image && docker image prune
+docker stop dishfudb-container && docker rm dishfudb-container  && docker image rm dishfudb-image && docker image prune
 
-docker image build --file Dockerfile -t dishfu-image .
+docker image build --file Dockerfile -t dishfudb-image .
 
-docker stop dishfu-container && docker rm dishfu-container 
+docker stop dishfudb-container && docker rm dishfudb-container 
 
 MAIN_NET="33.33.33"
 MAIN_IP="33.33.33.254"
@@ -26,10 +26,10 @@ docker run -v "$PWD/data":/var/lib/mysql -v "$PWD/cronJobs":/var/cronJobs \
     -v "$PWD/docker-entrypoint-initdb.d/":/docker-entrypoint-initdb.d/ \
     -p 3306:3306 \
     --network network_dishfu --restart on-failure \
-    --name dishfu-container -e MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32) -d dishfu-image
+    --name dishfudb-container -e MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32) -d dishfudb-image
 
-docker exec -it dishfu-container bash
-docker restart dishfu-container
+docker exec -it dishfudb-container bash
+docker restart dishfudb-container
 
 Part B-- phpmyadmin -- tools
 docker container  stop mysqladmin-container
