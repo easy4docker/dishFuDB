@@ -11,5 +11,4 @@ RUN apt-get -y install vim
 # COPY app /var/app
 # COPY init.sql /docker-entrypoint-initdb.d/
 COPY /initShell.sh /initShell.sh
-
 RUN sed -i '1 a sh /initShell.sh' /usr/local/bin/docker-entrypoint.sh
