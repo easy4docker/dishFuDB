@@ -6,6 +6,7 @@ npx express-generator app
 Part B-- MYSQL Server 
 
 docker stop dishfu-container && docker rm dishfu-container  && docker image rm dishfu-image && docker image prune
+
 docker image build --file Dockerfile -t dishfu-image .
 
 docker stop dishfu-container && docker rm dishfu-container 
