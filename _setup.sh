@@ -7,6 +7,8 @@ cd ${FULLDIR}
 
 mkdir -fr ${FULLDIR}/docker-entrypoint-initdb.d
 
+echo "mkdir -fr ${FULLDIR}/docker-entrypoint-initdb.d"
+
 docker stop dishfu-db-container && docker rm dishfu-db-container  && docker image rm dishfu-db-image && docker image prune -f
 
 docker image build --file ${FULLDIR}/DockerfileDB -t dishfu-db-image .
@@ -25,7 +27,8 @@ docker network create \
     --gateway=${MAIN_IP} \
     network_dishfu &> /dev/null
 
-/* --- assigned dynamic password --$(openssl rand -base64 21)-*/
+# --- assigned dynamic password --$(openssl rand -base64 21)-
+
 docker run -v "${FULLDIR}/data":/var/lib/mysql -v "${FULLDIR}/cronJobs":/var/cronJobs \
     -v "${FULLDIR}/log":/var/log \
     -v "${FULLDIR}/docker-entrypoint-initdb.d/":/docker-entrypoint-initdb.d/ \
