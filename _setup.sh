@@ -4,7 +4,9 @@ ROOTDIR="$(PWD)"
 FULLDIR="$(PWD)/${BASEDIR}"
 
 cd ${FULLDIR}
-mkdir -f ${FULLDIR}/docker-entrypoint-initdb.d
+
+mkdir -fr ${FULLDIR}/docker-entrypoint-initdb.d
+
 docker stop dishfu-db-container && docker rm dishfu-db-container  && docker image rm dishfu-db-image && docker image prune -f
 
 docker image build --file ${FULLDIR}/DockerfileDB -t dishfu-db-image .
