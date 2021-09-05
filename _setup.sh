@@ -5,9 +5,7 @@ FULLDIR="$(PWD)/${BASEDIR}"
 
 cd ${FULLDIR}
 
-mkdir -fr ${FULLDIR}/docker-entrypoint-initdb.d
-
-echo "mkdir -p ${FULLDIR}/docker-entrypoint-initdb.d"
+mkdir -p ${FULLDIR}/docker-entrypoint-initdb.d
 
 docker stop dishfu-db-container && docker rm dishfu-db-container  && docker image rm dishfu-db-image && docker image prune -f
 
