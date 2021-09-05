@@ -13,8 +13,8 @@ docker image build --file ${FULLDIR}/DockerfileDB -t dishfu-db-image .
 
 docker stop dishfu-db-container && docker rm dishfu-db-container 
 
-cat {ROOTDIR}/config/database/develop/auth.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
-cat {ROOTDIR}/config/database/init.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
+cat ${ROOTDIR}/config/database/develop/auth.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
+cat ${ROOTDIR}/config/database/init.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
 
 MAIN_NET="33.33.33"
 MAIN_IP="33.33.33.254"
