@@ -7,7 +7,8 @@ cd ${FULLDIR}
 
 mkdir -p ${FULLDIR}/docker-entrypoint-initdb.d
 
-docker stop dishfu-db-container && docker rm dishfu-db-container  && docker image rm dishfu-db-image && docker image prune -f
+docker stop dishfu-db-container && docker rm dishfu-db-container  && docker image rm dishfu-db-image 
+# --- && docker image prune -f
 
 docker image build --file ${FULLDIR}/DockerfileDB -t dishfu-db-image .
 
