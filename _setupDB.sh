@@ -1,9 +1,6 @@
 #! /bin/sh
 FULLDIR=$(PWD)
 ROOTDIR=$(dirname $(dirname $(PWD)))
-echo $FULLDIR
-echo $ROOTDIR
-exit 1
 
 cd ${FULLDIR}
 
