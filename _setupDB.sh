@@ -31,6 +31,6 @@ docker network create \
 docker run -v "${FULLDIR}/data":/var/lib/mysql -v "${FULLDIR}/cronJobs":/var/cronJobs \
     -v "${FULLDIR}/log":/var/log \
     -v "${FULLDIR}/docker-entrypoint-initdb.d/":/docker-entrypoint-initdb.d/ \
-    -p _${PORT}:3306 \
+    -p ${PORT}:3306 \
     --network network_dishfu --restart on-failure \
     --name dishfu-db-container_${ENV} -e MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32) -d dishfu-db-image_${ENV}
