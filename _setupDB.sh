@@ -4,6 +4,7 @@ ROOTDIR=$(dirname $(dirname $(pwd)))
 ENV=${1}
 PORT=${2}
 
+echo ${PORT}
 cd ${FULLDIR}
 
 mkdir -p ${FULLDIR}/docker-entrypoint-initdb.d
