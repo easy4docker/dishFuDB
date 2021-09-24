@@ -1,20 +1,21 @@
 #! /bin/sh
 FULLDIR=$(pwd)
 ROOTDIR=$(dirname $(dirname $(pwd)))
+ENV=${1}
+PORT=${2}
 
 cd ${FULLDIR}
 
 mkdir -p ${FULLDIR}/docker-entrypoint-initdb.d
 
-docker stop dishfu-db-container && docker rm dishfu-db-container  && docker image rm dishfu-db-image 
+docker stop dishfu-db-container_${ENV} && docker rm dishfu-db-container_${ENV}  && docker image rm dishfu-db-image_${ENV} 
 # --- && docker image prune -f
 
-docker image build --file ${FULLDIR}/DockerfileDB -t dishfu-db-image .
+docker image build --file ${FULLDIR}/DockerfileDB -t dishfu-db-image_${ENV} .
 
-docker stop dishfu-db-container && docker rm dishfu-db-container 
 
-cat ${ROOTDIR}/config/database/develop/auth.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
-cat ${ROOTDIR}/config/database/init.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
+cat ${ROOTDIR}/config/database/dev/auth.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
+cat ${ROOTDIR}/config/database/dev/init.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
 
 MAIN_NET="33.33.33"
 MAIN_IP="33.33.33.254"
@@ -30,6 +31,6 @@ docker network create \
 docker run -v "${FULLDIR}/data":/var/lib/mysql -v "${FULLDIR}/cronJobs":/var/cronJobs \
     -v "${FULLDIR}/log":/var/log \
     -v "${FULLDIR}/docker-entrypoint-initdb.d/":/docker-entrypoint-initdb.d/ \
-    -p 3306:3306 \
+    -p _${PORT}:3306 \
     --network network_dishfu --restart on-failure \
-    --name dishfu-db-container -e MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32) -d dishfu-db-image
+    --name dishfu-db-container_${ENV} -e MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32) -d dishfu-db-image_${ENV}
