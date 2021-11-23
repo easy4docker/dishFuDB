@@ -20,10 +20,10 @@ docker image build --file ${FULLDIR}/DockerfileDB -t dishfu-db-image_${ENV} .
 cat ${ROOTDIR}/config/database/${ENV}/auth.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
 cat ${ROOTDIR}/config/database/${ENV}/init.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
 
-if [ -z "$ENV2" ]; then 
+if [ -n "$ENV2" ]; then 
     cat ${ROOTDIR}/config/database/${ENV2}/init.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
 fi
-if [ -z "$ENV3" ]; then 
+if [ -n "$ENV3" ]; then 
     cat ${ROOTDIR}/config/database/${ENV3}/init.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
 fi
 
