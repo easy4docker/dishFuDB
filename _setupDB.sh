@@ -2,7 +2,9 @@
 FULLDIR=$(pwd)
 ROOTDIR=$(dirname $(dirname $(pwd)))
 ENV=${1}
-PORT=${2}
+ENV2=${2}
+ENV3=${3}
+PORT=3306
 
 echo ${PORT}
 cd ${FULLDIR}
@@ -17,6 +19,13 @@ docker image build --file ${FULLDIR}/DockerfileDB -t dishfu-db-image_${ENV} .
 
 cat ${ROOTDIR}/config/database/${ENV}/auth.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
 cat ${ROOTDIR}/config/database/${ENV}/init.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
+
+if [ -z "$ENV2" ]; then 
+    cat ${ROOTDIR}/config/database/${ENV2}/init.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
+fi
+if [ -z "$ENV3" ]; then 
+    cat ${ROOTDIR}/config/database/${ENV3}/init.sql >> ${FULLDIR}/docker-entrypoint-initdb.d/init.sql
+fi
 
 MAIN_NET="33.33.33"
 MAIN_IP="33.33.33.254"
